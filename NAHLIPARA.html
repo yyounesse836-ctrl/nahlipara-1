@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAHLI PARA - Solutions beauté</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Logo palette – CSS variables for consistency */
+        :root {
+            --dark-teal: #294643;
+            --dark-teal-muted: #4a6562;
+            --golden-honey: #cba056;
+            --golden-honey-hover: #b8923f;
+            --golden-honey-light: rgba(203, 160, 86, 0.12);
+            --sage: #778f72;
+            --header-green: #86a768;
+            --header-green-light: #a0b88a;
+            --bg-off-white: #f5f7f4;
+            --bg-tint: #f4f7f2;
+            --bg-tint-strong: #e8efe6;
+            --border-light: #dce4d8;
+            --border-medium: #c5d0be;
+            --border-strong: #a8b8a0;
+            --shadow-teal: rgba(41, 70, 67, 0.08);
+            --shadow-teal-strong: rgba(41, 70, 67, 0.12);
+            --shadow-teal-soft: rgba(41, 70, 67, 0.05);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7f4;
+            color: #294643;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #dfdfdf 0%, #789772 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        /* Fluid media defaults (avoid horizontal scrolling on phones) */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Mobile navigation toggle */
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .nav-toggle:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.9);
+            outline-offset: 2px;
+        }
+        
+        .container {
+            padding: 2rem;
+            min-height: 70vh;
+        }
+        
+        footer {
+            background-color: var(--dark-teal);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        footer.footer-light {
+            background-color: white;
+            color: #294643;
+            padding: 2rem 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--dark-teal);
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--golden-honey);
+            color: var(--golden-honey);
+        }
+
+        .footer-social a:focus-visible {
+            outline: 2px solid var(--golden-honey);
+            outline-offset: 2px;
+        }
+
+        .footer-social a i {
+            font-size: 1.25rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            color: var(--dark-teal-muted);
+        }
+        
+        /* Page-specific styles */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Page d’accueil */
+        .hero {
+            background: url("images4.png.png") center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #cba056;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #b8923f;
+            transform: translateY(3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+        }
+        
+        .category-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Harmoniser les images des cartes (votre HTML utilise <img>, pas des div .category-img/.product-img) */
+        .category-card > img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            background: var(--bg-tint, #f4f7f2);
+        }
+
+        .product-card > img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            background: var(--bg-tint, #f4f7f2);
+        }
+        
+        /* Page Produits */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box {
+            padding: 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            width: 300px;
+            max-width: 100%;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: #cba056;
+            margin: 0.5rem 0;
+        }
+
+        .product-ingredients {
+            font-size: 0.9rem;
+            color: #4a6562;
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #cba056;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #b8923f;
+        }
+        
+        /* AI Consultation Page */
+        #ai-consultation {
+            background: linear-gradient(135deg, #eef4ec 0%, #e0e8dc 100%);
+            border-radius: 10px;
+            padding: 2rem 1.5rem 2.5rem;
+        }
+
+        .ai-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: #294643;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .section-header .subtitle {
+            color: #4a6562;
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0.75rem auto 0;
+        }
+
+        .face-analysis-section {
+            margin-bottom: 1rem;
+        }
+
+        .face-analysis-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #778f72;
+        }
+
+        .face-analysis-header h3 {
+            color: #294643;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .face-analysis-header p {
+            color: #4a6562;
+            font-size: 0.95rem;
+        }
+
+        .camera-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.75rem 0;
+        }
+
+        .camera-preview {
+            width: 100%;
+            max-width: 500px;
+            height: 260px;
+            background: linear-gradient(135deg, #f4f7f2 0%, #e8efe6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #778f72;
+        }
+
+        .camera-placeholder {
+            text-align: center;
+            color: #4a6562;
+        }
+
+        .camera-placeholder i {
+            font-size: 3rem;
+            color: #778f72;
+            margin-bottom: 0.75rem;
+        }
+
+        .camera-controls {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .camera-btn {
+            padding: 0.7rem 1.4rem;
+            border: none;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .camera-btn.primary {
+            background: #cba056;
+            color: white;
+        }
+
+        .camera-btn.secondary {
+            background: white;
+            color: #cba056;
+            border: 2px solid #cba056;
+        }
+
+        .camera-btn.upload {
+            background: #4a6562;
+            color: white;
+        }
+
+        .camera-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .analysis-results {
+            margin-top: 1.5rem;
+        }
+
+        .skin-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric {
+            background: #f4f7f2;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #294643;
+        }
+
+        .metric-bar {
+            height: 8px;
+            background: #e2e2e2;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.4rem 0;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #778f72, #86a768);
+            border-radius: 4px;
+        }
+
+        .metric-value {
+            float: right;
+            font-weight: 600;
+            color: #294643;
+        }
+
+        .skin-type-detected {
+            background: #f4f7f2;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #778f72;
+            margin-top: 0.5rem;
+        }
+
+        .skin-type-detected h5 {
+            margin-bottom: 0.4rem;
+        }
+
+        .assessment-chat-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skin-assessment {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .assessment-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #294643;
+            margin-bottom: 0.25rem;
+        }
+
+        .assessment-header p {
+            color: #4a6562;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+        }
+
+        .skin-type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin: 0.75rem 0 0.25rem;
+        }
+
+        .skin-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .skin-option i {
+            font-size: 1.5rem;
+            color: #cba056;
+            margin-bottom: 0.4rem;
+        }
+
+        .skin-option:hover {
+            border-color: #cba056;
+            transform: translateY(-1px);
+        }
+
+        .skin-option.active {
+            border-color: #cba056;
+            background-color: #f4f7f2;
+        }
+
+        .concerns-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .concern-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.4rem 0.5rem;
+            border-radius: 5px;
+            transition: background 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .concern-checkbox:hover {
+            background: #f4f7f2;
+        }
+
+        .concern-checkbox input {
+            display: none;
+        }
+
+        .checkmark {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ccc;
+            border-radius: 3px;
+            margin-right: 8px;
+            position: relative;
+            background-color: #fff;
+        }
+
+        .concern-checkbox input:checked + .checkmark {
+            background: #778f72;
+            border-color: #778f72;
+        }
+
+        .concern-checkbox input:checked + .checkmark:after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .submit-btn {
+            background-color: #cba056;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chat-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chat-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #294643;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #a6853d;
+            font-size: 0.85rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #a6853d;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+            max-height: 400px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.9rem;
+            border-radius: 12px;
+            max-width: 85%;
+            font-size: 0.95rem;
+        }
+
+        .user-message {
+            background-color: #f0f0f0;
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background-color: #cba056;
+            color: white;
+            margin-right: auto;
+        }
+
+        .message.welcome {
+            background: linear-gradient(135deg, #cba056, #d4b96a);
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.35rem;
+            font-size: 0.85rem;
+        }
+
+        .message-time {
+            margin-left: auto;
+            opacity: 0.8;
+            font-size: 0.8rem;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .quick-btn:hover {
+            border-color: #cba056;
+            color: #294643;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .chat-input button {
+            padding: 0.8rem 1.3rem;
+            background-color: #cba056;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .recommendations-section {
+            margin-top: 1.5rem;
+            background-color: white;
+            padding: 1.75rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .recommendations-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #cba056;
+            margin-bottom: 0.25rem;
+        }
+
+        .recommendations-header p {
+            color: #4a6562;
+            font-size: 0.95rem;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .recommendation-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .recommendation-img {
+            height: 140px;
+            background: linear-gradient(135deg, #f4f7f2 0%, #e8efe6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recommendation-img i {
+            font-size: 2.4rem;
+            color: #cba056;
+        }
+
+        .recommendation-content {
+            padding: 1.1rem 1.3rem 1.3rem;
+        }
+
+        .match-badge {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            background: #cba056;
+            color: white;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            margin-bottom: 0.4rem;
+        }
+
+        @media (max-width: 768px) {
+            #ai-consultation {
+                padding: 1.5rem 1rem 2rem;
+            }
+
+            .camera-preview {
+                max-width: 100%;
+                height: 220px;
+            }
+
+            .skin-type-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .concerns-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Page Paiement */
+        .checkout-container {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .cart-items {
+            flex: 2;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: contain;
+            object-position: center;
+            flex-shrink: 0;
+            background: var(--bg-tint, #f4f7f2);
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: #cba056;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .remove-item {
+            color: #cba056;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .payment-summary {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .payment-methods {
+            margin-top: 2rem;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        
+        .payment-method.selected {
+            border-color: #cba056;
+            background-color: rgba(203, 160, 86, 0.12);
+        }
+        
+        .payment-method input {
+            margin-right: 1rem;
+        }
+        
+        /* Page panier : éviter l’espace vide - le conteneur suit la hauteur du contenu */
+        .container.checkout-active {
+            min-height: 0;
+        }
+
+        #checkout {
+            padding-top: 0;
+        }
+
+        #checkout .checkout-wrapper {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 0;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #cba056;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Global responsiveness (phones) */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.75rem 1rem;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .logo img {
+                width: 130px !important; /* overrides inline width */
+            }
+
+            .nav-toggle {
+                display: inline-flex;
+                margin-left: auto;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                gap: 0.25rem;
+                padding: 0.5rem 0;
+            }
+
+            header.nav-open nav ul {
+                display: flex;
+            }
+
+            nav ul li {
+                margin-left: 0;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 0.75rem 1rem;
+                border-radius: 14px;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 60vh;
+                padding: 3rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.9rem, 7vw, 2.6rem);
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .products-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .product-card > img {
+                height: 200px;
+            }
+
+            .checkout-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            #checkout .checkout-wrapper {
+                padding: 1.25rem;
+            }
+
+            .cart-items,
+            .payment-summary {
+                padding: 1.25rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+            }
+
+            .cart-item-img {
+                width: 100%;
+                max-width: 160px;
+                height: 160px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="image.svg" alt="Logo NAHLI PARA" style="width: 155px; height: auto;">
+        </div>
+        <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Ouvrir le menu">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+        <nav id="primary-nav" class="primary-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="home" >Accueil</a></li>
+                <li><a href="#" class="nav-link" data-page="products">Produits</a></li>
+                <li><a href="#" class="nav-link" data-page="ai-consultation" >Consultation IA</a></li>
+                <li><a href="#" class="nav-link" data-page="checkout" >Panier</a></li>
+            </ul>
+        </nav>
+    </header> 
+    <div class="container">
+        <!-- Page d’accueil -->
+        <div class="page active" id="home">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Révélez votre éclat naturel</h1>
+                    <p>Des produits cosmétiques et dermo-cosmétiques haut de gamme adaptés à votre beauté unique</p>
+                    <a href="#" class="btn nav-link" data-page="ai-consultation">Découvrez maintenant</a>
+                </div>
+            </div>
+            
+            <h2 style="margin-top: 3rem; text-align: center;">Nos catégories de produits</h2>
+            
+            <div class="categories">
+                <div class="category-card">
+                    <img src="images7.png.png" alt="Soins de la peau">
+                    <div class="category-content">
+                        <h3>Soins de la peau</h3>
+                        <p>produits de soin pour la peau et le corps</p>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="images852.png.png" alt="Soins de la peau">
+                    <div class="category-content">
+                        <h3>maquiller</h3>
+                        <p>produits de beauté pour le visage</p>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="images951.png.png" alt="Soins capillaires">
+                    <div class="category-content">
+                        <h3>bébé&maman</h3>
+                        <p>produits pour les bébés et les mamans</p>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="images8594.png.png" alt="Parfums">
+                    <div class="category-content">
+                        <h3>paramédical</h3>
+                        <p>Produits médicaux et paramédicaux</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Products Page -->
+        <div class="page" id="products">
+            <div class="products-header">
+                <h2>  les Products</h2>
+                <input type="text" class="search-box" placeholder="Search products...">
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="images0.png" alt="Masque capillaire réparateur">
+                    <div class="product-info">
+                        <h3>CERAVE</h3>
+                        <div class="product-price">114 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> CERAVE CREME HYDRATANTE VISAGE SPF 30 PEAUX NORMALES A SECHES 52 ML
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images2.png" alt="Masque capillaire réparateur">
+                    <div class="product-info">
+                        <h3>LA ROCHE-POSAY</h3>
+                        <div class="product-price">160 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong>LA ROCHE-POSAY EFFACLAR MASQUE SEBO-REGULATEUR 100ml
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Iimages00.png" alt="Masque capillaire réparateur">
+                    <div class="product-info">
+                        <h3>MUSTELA</h3>
+                        <div class="product-price">79 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> MUSTELA GEL NETTOYANT 2 EN 1 200ml Cheveux Et Corps
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                   <img src="images3.png" alt="Masque capillaire réparateur">
+                    <div class="product-info">
+                        <h3>AVENT </h3>
+                        <div class="product-price">79 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> AVENT 2 TÉTINES NATURAL 6 mois et +
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images5.png" alt="Huile nettoyante douce">
+                    <div class="product-info">
+                        <h3>La Roche-Posay</h3>
+                        <div class="product-price">166 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> La Roche-Posay Anthelios Mineral One Spf 50+ 01 Claire – 30ml
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images1.png" alt="Huile nettoyante douce">
+                    <div class="product-info">
+                        <h3>BIODERMA</h3>
+                        <div class="product-price">170 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> BIODERMA SEBIUM PORE REFINER CONCENTRÉ 30 ML Achete + BIODERMA SEBIUM H2O 250ML Offert 
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images22.png" alt="Huile nettoyante douce">
+                    <div class="product-info">
+                        <h3>PRÉSIDENT </h3>
+                        <div class="product-price">45 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> PRÉSIDENT DENTIFRICE DEFENSE 75 ML
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images6.png" alt="AVENEr">
+                    <div class="product-info">
+                        <h3>AVENE</h3>
+                        <div class="product-price">199 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> AVENE Antirougeurs JOUR Crème apaisante SPF30 - 40ML
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images8.png" alt="product-info">
+                    <div class="product-info">
+                        <h3>La Roche-Posay</h3>
+                        <div class="product-price">360 DHS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> La Roche-Posay Retinol B3 Serum 30ml
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images9.png" alt="Eucerin">
+                    <div class="product-info">
+                        <h3>Eucerin</h3>
+                        <div class="product-price">199 HDS</div>
+                        <div class="product-ingredients">
+                            <strong>Ingrédients clés :</strong> Eucerin SUN PROTECTION PHOTOAGING CONTROL Fluide ANTI-ÂGE SPF 50+ - 50ml
+                        </div>
+                        <button class="add-to-cart">Ajouter au panier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- Page Consultation IA -->
+<div class="page" id="ai-consultation">
+    <div class="section-header">
+        <h2>Consultation Beauté IA</h2>
+        <p class="subtitle">
+            Analyse personnalisée de votre peau grâce à une technologie d’analyse faciale avancée.
+        </p>
+    </div>
+    
+    <div class="ai-container">
+        <!-- Section Analyse Faciale -->
+        <div class="face-analysis-section">
+            <div class="face-analysis-card">
+                <div class="face-analysis-header">
+                    <h3><i class="fas fa-camera"></i> <span>Analyse Faciale Intelligente</span></h3>
+                    <p>Scannez votre visage pour obtenir une évaluation précise de l’état de votre peau.</p>
+                </div>
+                
+                <div class="face-analysis-content">
+                    <div class="camera-container">
+                        <div class="camera-preview" id="cameraPreview">
+                            <div class="camera-placeholder">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Prêt à analyser votre peau</p>
+                            </div>
+                            <video id="faceVideo" autoplay playsinline style="display: none;"></video>
+                            <canvas id="faceCanvas" style="display: none;"></canvas>
+                        </div>
+                        
+                        <div class="camera-controls">
+                            <button id="startCamera" class="camera-btn primary">
+                                <i class="fas fa-video"></i> <span>Activer la caméra</span>
+                            </button>
+                            <button id="captureFace" class="camera-btn secondary" disabled>
+                                <i class="fas fa-camera"></i> Capturer l’image
+                            </button>
+                            <button id="uploadImage" class="camera-btn upload">
+                                <i class="fas fa-upload"></i> <span>Importer une photo</span>
+                            </button>
+                            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-results" id="analysisResults" style="display: none;">
+                        <h4 id="analysisResultsTitle"><i class="fas fa-chart-line"></i> Résultats de l’analyse</h4>
+                        <div class="skin-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Hydratation</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" id="hydrationLevel" style="width: 65%"></div>
+                                </div>
+                                <span class="metric-value" id="hydrationValue">65%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Éclat</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" id="glowLevel" style="width: 72%"></div>
+                                </div>
+                                <span class="metric-value" id="glowValue">72%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Texture</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" id="textureLevel" style="width: 58%"></div>
+                                </div>
+                                <span class="metric-value" id="textureValue">58%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Imperfections</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" id="imperfectionsLevel" style="width: 30%"></div>
+                                </div>
+                                <span class="metric-value" id="imperfectionsValue">Faible</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skin-type-detected">
+                            <h5><i class="fas fa-spa"></i> <span>Type de peau détecté</span> : <span id="detectedSkinType">Mixte</span></h5>
+                            <p class="skin-description" id="skinDescription">
+                                Votre peau présente des zones plus grasses au niveau de la zone T et des zones plus sèches sur les joues.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Évaluation et Chat -->
+        <div class="assessment-chat-section">
+            <div class="skin-assessment">
+                <div class="assessment-header">
+                    <h3><i class="fas fa-clipboard-check"></i> <span>Évaluation Personnalisée</span></h3>
+                    <p>Renseignez les informations ci-dessous pour recevoir des recommandations ciblées.</p>
+                </div>
+                
+                <form id="skin-form">
+                    <div class="form-group">
+                        <label for="skin-type"><i class="fas fa-tint"></i> <span>Type de peau</span></label>
+                        <div class="skin-type-selector">
+                            <div class="skin-option" data-value="dry">
+                                <i class="fas fa-sun"></i>
+                                <span>Peau sèche</span>
+                            </div>
+                            <div class="skin-option" data-value="oily">
+                                <i class="fas fa-oil-can"></i>
+                                <span>Peau grasse</span>
+                            </div>
+                            <div class="skin-option " data-value="combination">
+                                <i class="fas fa-balance-scale"></i>
+                                <span>Peau mixte</span>
+                            </div>
+                            <div class="skin-option" data-value="normal">
+                                <i class="fas fa-heart"></i>
+                                <span>Peau normale</span>
+                            </div>
+                            <div class="skin-option" data-value="sensitive">
+                                <i class="fas fa-allergies"></i>
+                                <span>Peau sensible</span>
+                            </div>
+                        </div>
+                        <select id="skin-type" style="display: none;">
+                            <option value="">Sélectionnez votre type de peau</option>
+                            <option value="dry">Sèche</option>
+                            <option value="oily">Grasse</option>
+                            <option value="combination">Mixte</option>
+                            <option value="normal">Normale</option>
+                            <option value="sensitive">Sensible</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="skin-concerns"><i class="fas fa-exclamation-triangle"></i> <span>Préoccupations cutanées</span></label>
+                        <div class="concerns-selector">
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="acne">
+                                <span class="checkmark"></span>
+                                <span>Acné</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="aging">
+                                <span class="checkmark"></span>
+                                <span>Rides / vieillissement</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="dark-spots">
+                                <span class="checkmark"></span>
+                                <span>Taches pigmentaires</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="redness">
+                                <span class="checkmark"></span>
+                                <span>Rougeurs</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="dryness">
+                                <span class="checkmark"></span>
+                                <span>Sécheresse</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="oiliness">
+                                <span class="checkmark"></span>
+                                <span>Excès de sébum</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="pores">
+                                <span class="checkmark"></span>
+                                <span>Pores dilatés</span>
+                            </label>
+                            <label class="concern-checkbox">
+                                <input type="checkbox" name="skin-concerns" value="dullness">
+                                <span class="checkmark"></span>
+                                <span>Teint terne</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="current-routine"><i class="fas fa-history"></i> <span>Routine actuelle</span></label>
+                        <textarea id="current-routine" placeholder="Décrivez brièvement votre routine de soins quotidienne (matin et soir)."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="allergies"><i class="fas fa-allergies"></i> <span>Allergies ou ingrédients à éviter</span></label>
+                        <input type="text" id="allergies" placeholder="Exemples : parfum, noix, alcool, acides forts, etc.">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-magic"></i> <span>Obtenir mes recommandations</span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3><i class=""></i> <span>Conseillère Beauté IA</span></h3>
+                     <div class="">
+                        <span class=""></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message ai-message welcome">
+                        <div class="message-header">
+                            <strong>NAHLIIA</strong>
+                            <span class="message-time">Maintenant</span>
+                        </div>
+                        <div class="message-content">
+                            Bonjour, je suis votre conseillère beauté intelligente. Je vous accompagne pour analyser vos besoins cutanés et vous proposer une routine adaptée. Vous pouvez commencer par l’analyse faciale ou poser directement vos questions.
+                        </div>
+                    </div>
+                    
+                    <div class="message ai-message">
+                        <div class="message-header">
+                            <strong>NAHLIIA</strong>
+                            <span class="message-time">Maintenant</span>
+                        </div>
+                        <div class="message-content">
+                            Conseil du jour : l’analyse faciale permet d’identifier précisément le type de peau et ses besoins spécifiques afin de sélectionner les soins les plus pertinents.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <button class="quick-btn" data-question="Quels produits recommandez-vous pour une peau mixte ?">
+                        <i class="fas fa-spa"></i> <span>Soins pour peau mixte</span>
+                    </button>
+                    <button class="quick-btn" data-question="Comment atténuer l’apparence des pores ?">
+                        <i class="fas fa-search"></i> Réduire les pores
+                    </button>
+                    <button class="quick-btn" data-question="Pouvez-vous proposer une routine matin et soir ?">
+                        <i class="fas fa-calendar-alt"></i> <span>Routine complète</span>
+                    </button>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="Saisissez votre question à destination de GlowIA…">
+                    <button id="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Recommandations -->
+        <div class="recommendations-section" id="recommendationsSection" style="display: none;">
+            <div class="recommendations-header">
+                <h3><i class="fas fa-star"></i> <span>Recommandations personnalisées</span></h3>
+                <p>Produits sélectionnés en fonction du profil de votre peau.</p>
+            </div>
+            
+            <div class="recommendations-grid" id="recommendationsGrid">
+                <!-- Les recommandations seront générées ici -->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<style>
+/* Logo palette: Header Green, Sage, Dark Teal, Golden Honey */
+#ai-consultation {
+    background: linear-gradient(135deg, #f5f7f4 0%, #e8efe6 100%);
+    min-height: 70vh;
+    border-radius: 10px;
+    padding: 2rem 1.5rem 2.5rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 2.4rem;
+    color: #294643;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.subtitle {
+    color: #4a6562;
+    font-size: 1rem;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.ai-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Analyse Faciale */
+.face-analysis-section {
+    margin-bottom: 1rem;
+}
+
+.face-analysis-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-left: 4px solid #778f72;
+}
+
+.face-analysis-header h3 {
+    color: #294643;
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.face-analysis-header p {
+    color: #4a6562;
+    font-size: 0.95rem;
+}
+
+.camera-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1.75rem 0;
+}
+
+.camera-preview {
+    width: 100%;
+    max-width: 400px;
+    height: 260px;
+    background: linear-gradient(135deg, #f4f7f2 0%, #e8efe6 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 2px dashed #778f72;
+}
+
+.camera-placeholder {
+    text-align: center;
+    color: #4a6562;
+}
+
+.camera-placeholder i {
+    font-size: 3rem;
+    color: #778f72;
+    margin-bottom: 0.75rem;
+}
+
+.camera-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.camera-btn {
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.camera-btn.primary {
+    background: #cba056;
+    color: #ffffff;
+}
+
+.camera-btn.secondary {
+    background: #ffffff;
+    color: #cba056;
+    border: 2px solid #cba056;
+}
+
+.camera-btn.upload {
+    background: #4a6562;
+    color: #ffffff;
+}
+
+.camera-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Résultats d’analyse */
+.analysis-results {
+    margin-top: 1.5rem;
+}
+
+.skin-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.metric {
+    background: #f4f7f2;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.metric-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #294643;
+}
+
+.metric-bar {
+    height: 8px;
+    background: #e2e2e2;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0.4rem 0;
+}
+
+.metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #778f72, #86a768);
+    border-radius: 4px;
+}
+
+.metric-value {
+    float: right;
+    font-weight: 600;
+    color: #294643;
+}
+
+.skin-type-detected {
+    background: #f4f7f2;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #778f72;
+    margin-top: 0.5rem;
+}
+
+/* Évaluation + Chat */
+.assessment-chat-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.skin-assessment {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.assessment-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #294643;
+    margin-bottom: 0.3rem;
+}
+
+.assessment-header p {
+    color: #4a6562;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+}
+
+/* Sélecteur de type de peau */
+.skin-type-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.skin-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.9rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.skin-option i {
+    font-size: 1.5rem;
+    color: #cba056;
+    margin-bottom: 0.4rem;
+}
+
+.skin-option:hover {
+    border-color: #cba056;
+    transform: translateY(-5px);
+}
+
+.skin-option.active {
+    border-color: #cba056;
+    background-color: #f4f7f2;
+}
+
+/* Cases à cocher personnalisées */
+.concerns-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.concern-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.concern-checkbox:hover {
+    background: #e8efe6;
+}
+
+.concern-checkbox input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-right: 4px;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.concern-checkbox input:checked + .checkmark {
+    background: #778f72;
+    border-color: #778f72;
+}
+
+.concern-checkbox input:checked + .checkmark:after {
+    content: '✓';
+    position: absolute;
+    color: #ffffff;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Bouton de soumission */
+.submit-btn {
+    background-color: #cba056;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Chat */
+.chat-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.chat-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #294643;
+}
+
+.ai-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #a6853d;
+    font-size: 0.85rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #a6853d;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    max-height: 400px;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.9rem;
+    border-radius: 12px;
+    max-width: 85%;
+    font-size: 0.95rem;
+}
+
+.user-message {
+    background-color: #f0f0f0;
+    margin-left: auto;
+}
+
+.ai-message {
+    background-color: #cba056;
+    color: #ffffff;
+    margin-right: auto;
+}
+
+.message.welcome {
+    background: linear-gradient(135deg, #cba056, #d4e5d2);
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+}
+
+.message-time {
+    margin-left: auto;
+    opacity: 0.8;
+    font-size: 0.8rem;
+}
+
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.quick-btn {
+    padding: 0.5rem 1rem;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.quick-btn:hover {
+    border-color: #cba056;
+    color: #cba056;
+}
+
+.chat-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+}
+
+.chat-input button {
+    padding: 0.8rem 1.3rem;
+    background-color: #cba056;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/* Recommandations */
+.recommendations-section {
+    margin-top: 1.5rem;
+    background-color: #ffffff;
+    padding: 1.75rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.recommendations-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #294643;
+    margin-bottom: 0.25rem;
+}
+
+.recommendations-header p {
+    color: #4a6562;
+    font-size: 0.95rem;
+}
+
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.recommendation-card {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-3px);
+}
+
+.recommendation-img {
+    height: 140px;
+    background: linear-gradient(135deg, #f4f7f2 0%, #e8efe6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recommendation-img i {
+    font-size: 2.4rem;
+    color: #cba056;
+}
+
+.recommendation-content {
+    padding: 1.1rem 1.3rem 1.3rem;
+}
+
+.match-badge {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    background: #cba056;
+    color: #ffffff;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #ai-consultation {
+        padding: 1.5rem 1rem 2rem;
+    }
+    
+    .camera-preview {
+        max-width: 100%;
+        height: 220px;
+    }
+    
+    .skin-type-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .concerns-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .camera-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .camera-btn {
+        justify-content: center;
+    }
+}
+</style>
+        
+        <!-- Page Panier -->
+        <div class="page" id="checkout">
+            <div class="checkout-wrapper">
+                <h2>Votre panier</h2>
+                
+                <div class="checkout-container">
+                <div class="cart-items">
+                    <h3>Articles (3)</h3>
+                    
+                    <div class="cart-item">
+                        <img src="Iimages00.png" alt="MUSTELA GEL NETTOYANT 2 EN 1 200ml Cheveux Et Corps" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">MUSTELA GEL NETTOYANT 2 EN 1 200ml Cheveux Et Corps</div>
+                            <div class="cart-item-price">79 DHS</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn">-</button>
+                                <span>1</span>
+                                <button class="quantity-btn">+</button>
+                            </div>
+                            <a href="#" class="remove-item">Supprimer</a>
+                        </div>
+                    </div>
+
+                    <div class="cart-item">
+                        <img src="images5.png" alt="La Roche-Posay Anthelios Mineral One Spf 50+ 01 Claire – 30ml" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">La Roche-Posay Anthelios Mineral One Spf 50+ 01 Claire – 30ml</div>
+                            <div class="cart-item-price">166 DHS</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn">-</button>
+                                <span>1</span>
+                                <button class="quantity-btn">+</button>
+                            </div>
+                            <a href="#" class="remove-item">Supprimer</a>
+                        </div>
+                    </div>
+
+                    <div class="cart-item">
+                        <img src="images9.png" alt="Eucerin SUN PROTECTION PHOTOAGING CONTROL Fluide ANTI-ÂGE SPF 50+ - 50ml" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title"> Eucerin SUN PROTECTION PHOTOAGING CONTROL Fluide ANTI-ÂGE SPF 50+ - 50ml</div>
+                            <div class="cart-item-price">199 DHS</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn">-</button>
+                                <span>1</span>
+                                <button class="quantity-btn">+</button>
+                            </div>
+                            <a href="#" class="remove-item">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-summary">
+                    <h3>Récapitulatif de commande</h3>
+                    
+                    <div class="summary-row">
+                        <span>Sous-total</span>
+                        <span>444 DHS</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Livraison</span>
+                        <span>Offerte</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span>20 DHS</span>
+                    </div>
+                    
+                    <div class="summary-row total-row">
+                        <span>Total</span>
+                        <span>464 DHS</span>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h3>Mode de paiement</h3>
+                        
+                        <div class="payment-method selected">
+                            <input type="radio" name="payment" id="credit-card" checked>
+                            <label for="credit-card">Carte bancaire</label>
+                        </div>
+                        
+                        <div class="payment-method">
+                            <input type="radio" name="payment" id="paypal">
+                            <label for="paypal">Payer avec PayPal</label>
+                        </div>
+                        
+                        <div class="payment-method">
+                            <input type="radio" name="payment" id="apple-pay">
+                            <label for="apple-pay">Payer avec Apple Pay</label>
+                        </div>
+                    </div>
+                    
+                    <button class="checkout-btn">Finaliser l’achat</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer-light">
+        <div class="footer-social">
+            <a href="#" aria-label="Instagram (NAHLI PARA)"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook (NAHLI PARA)"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; 2025 NAHLI PARA. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Menu mobile (petits écrans)
+        const headerEl = document.querySelector('header');
+        const navToggle = document.querySelector('.nav-toggle');
+
+        if (headerEl && navToggle) {
+            const closeNav = () => {
+                headerEl.classList.remove('nav-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            };
+
+            navToggle.addEventListener('click', () => {
+                const isOpen = headerEl.classList.toggle('nav-open');
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            // Close menu when a header nav link is clicked
+            document.querySelectorAll('header .nav-link').forEach(link => {
+                link.addEventListener('click', () => closeNav());
+            });
+
+            // If the user rotates / grows the window, ensure desktop nav shows normally
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) closeNav();
+            });
+        }
+
+        // Navigation entre les pages
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Retirer la classe active de tous les liens de navigation
+                document.querySelectorAll('.nav-link').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                
+                // Ajouter la classe active au lien cliqué
+                this.classList.add('active');
+                
+                // Masquer toutes les pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Afficher la page sélectionnée
+                const pageId = this.getAttribute('data-page');
+                const pageEl = pageId ? document.getElementById(pageId) : null;
+                if (pageEl) pageEl.classList.add('active');
+
+                // Corriger l’espace vide sur la page panier : réduire le conteneur à la hauteur du contenu
+                const container = document.querySelector('.container');
+                if (pageId === 'checkout') {
+                    container.classList.add('checkout-active');
+                } else {
+                    container.classList.remove('checkout-active');
+                }
+            });
+        });
+        
+        // Chat IA simple
+        const sendBtn = document.getElementById('send-btn');
+        const userInputEl = document.getElementById('user-input');
+        const chatMessagesEl = document.getElementById('chat-messages');
+        if (sendBtn && userInputEl && chatMessagesEl) {
+        sendBtn.addEventListener('click', function() {
+            const userInput = userInputEl;
+            const chatMessages = chatMessagesEl;
+            
+            if (userInput.value.trim() === '') return;
+            
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.textContent = userInput.value;
+            chatMessages.appendChild(userMessage);
+            
+            // Générer une réponse IA (version simplifiée)
+            const aiResponses = [
+                "je vous recommande notre Sérum visage hydratant pour vos préoccupations cutanées. Il contient de l’acide hyaluronique, excellent pour l’hydratation.",
+                "D’après ce que vous avez décrit, notre Crème éclaircissante à la vitamine C serait parfaite pour atténuer les taches et unifier le teint.",
+                "Pour les peaux sensibles, je vous conseille d’essayer notre Huile nettoyante douce. Elle est sans parfum et formulée pour les peaux délicates.",
+                "Vous pourriez apprécier notre Masque capillaire réparateur si vos cheveux sont secs ou abîmés. Il contient de l’huile d’argan nourrissante et de la kératine.",
+                "Notre Fond de teint minéral offre une couvrance légère tout en étant non comédogène, ce qui le rend idéal pour les peaux sujettes à l’acné."
+            ];
+            
+            // Ajouter la réponse IA après un court délai
+            setTimeout(() => {
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'message ai-message';
+                aiMessage.textContent = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                chatMessages.appendChild(aiMessage);
+                
+                // Faire défiler vers le bas
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+            
+            // Vider le champ
+            userInput.value = '';
+            
+            // Faire défiler vers le bas
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+        
+        // Permettre d’envoyer avec la touche Entrée
+        userInputEl.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+        }
+        
+        // Soumission du formulaire peau
+        const skinForm = document.getElementById('skin-form');
+        if (skinForm) skinForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre diagnostic de peau ! Notre IA va maintenant analyser vos informations et vous proposer des recommandations personnalisées.');
+        });
+        
+        // Sélection du mode de paiement
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => {
+                    m.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                const input = this.querySelector('input');
+                if (input) input.checked = true;
+            });
+        });
+        
+        // Fonctionnalité d’ajout au panier
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.product-card');
+                const title = card ? card.querySelector('h3') : null;
+                const productName = title ? title.textContent : 'Produit';
+                alert(productName + ' a été ajouté à votre panier !');
+            });
+        });
+    </script>
+</body>
+</html>
